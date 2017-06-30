@@ -1,35 +1,21 @@
 "use strict";
 
-import snabbdom from 'snabbdom'
-import { init } from 'snabbdom'
+import createViews from './createviews.js'
 
-const patch = init([
-  require('snabbdom/modules/class').default,          // makes it easy to toggle classes
-  require('snabbdom/modules/props').default,          // for setting properties on DOM elements
-  require('snabbdom/modules/style').default,          // handles styling on elements with support for animations
-  require('snabbdom/modules/eventlisteners').default  // attaches event listeners
-]);
+let views = createViews()
 
-let dispatch,
-    currentVnode
+export default function createRenderer(store) {
+  store = store
+  store.subscribe(render)
 
-export default function createRenderer(dispatch, view) {
-  dispatch = dispatch
+  function render() {
+    // put switch statement to act as simple router
 
-  function render(state) {
-    let oldVnode = currentVnode
-    let newVnode = view(state, dispatch)
-    currentVnode = newVnode
-
-    patch(oldVnode, newVnode)
+    views.home(store.getState(), store.dispatch)
   }
 
-  function init(state, el) {
-    let initVnode = el
-    let newVnode = view(state, dispatch)
-    currentVnode = newVnode
-
-    patch(initVnode, newVnode)
+  function init() {
+    views.home(store.getState(), store.dispatch)
   }
 
   return {
