@@ -2,7 +2,7 @@
 
 export default function createStore(reducer) {
   let currentReducer = reducer,
-      state = { count: 0, isFetching: false },
+      state = { count: 0, isFetching: false, currentUrl: '/' },
       listeners = []
 
   function subscribe(listener) {

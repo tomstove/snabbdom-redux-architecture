@@ -1,11 +1,11 @@
 "use strict";
 
+import history from 'history'
 import createViews from './createviews.js'
 
 let views = createViews()
 
 export default function createRenderer(store) {
-  store = store
   store.subscribe(render)
 
   function render() {

@@ -5,14 +5,10 @@ import createRenderer from './createRenderer.js'
 import reducer from './reducer.js'
 
 let store,
-    renderer,
-    el
+    renderer
 
 
 store = createStore(reducer)
 renderer = createRenderer(store)
 
-
-el = document.getElementById('placeholder')
-
-renderer.init(el)
+renderer.init()
